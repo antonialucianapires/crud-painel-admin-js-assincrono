@@ -21,17 +21,37 @@ const criarNovaLinha = (nome, email) => {
 const tabela = document.querySelector('[data-tabela');
 
 
-const http = new XMLHttpRequest();
+const listaClientes = () => {
 
-http.open('GET', 'http://localhost:3000/profile');
+    const promise = new Promise((resolve, reject) => {
 
-http.send();
+        const http = new XMLHttpRequest();
 
-http.onload = () => {
-    const data = JSON.parse(http.response);
+        http.open('GET', 'http://localhost:3000/profile');
 
-    data.forEach(cliente => {
-        tabela.appendChild(criarNovaLinha(cliente.nome, cliente.email));
-    })
+        http.onload = () => {
+            if (http.status >= 400) {
+                reject(JSON.parse(http.response))
+            } else {
+                resolve(JSON.parse(http.response))
+            }
+        }
+
+        http.send();
+    });
+
+    console.log(promise)
+    return promise;
 
 }
+
+listaClientes()
+    .then(data => {
+        console.log(data)
+        data.forEach(cliente => {
+            tabela.appendChild(criarNovaLinha(cliente.nome, cliente.email));
+        })
+
+    });
+
+
