@@ -6,6 +6,23 @@ const listaClientes = () => {
         })
 }
 
-export const clienteService = {
-    listaClientes
+const criaCliente = (nome, email) => {
+    return fetch(`http://localhost:3001/profile`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            nome: nome,
+            email: email
+        })
+    }).then(resposta => {
+        return resposta.body
+    })
 }
+
+export const clienteService = {
+    listaClientes,
+    criaCliente
+}
+
