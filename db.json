@@ -2,13 +2,8 @@
   "profile": [
     {
       "nome": "felipe",
-      "email": "felipe@alura.com",
+      "email": "felipe@alura.com.br",
       "id": 1
-    },
-    {
-      "nome": "antonia luciana",
-      "email": "antonia@gmail.com",
-      "id": 2
     }
   ]
 }
