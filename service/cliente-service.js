@@ -34,10 +34,26 @@ const consultarClientePorId = (id) => {
     })
 }
 
+const atualizaCliente = (id, nome, email) => {
+    return fetch(`http://localhost:3001/profile/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            nome: nome,
+            email: email
+        })
+    }).then(resposta => {
+        return resposta.json()
+    });
+}
+
 export const clienteService = {
     listaClientes,
     criaCliente,
     removeCliente,
-    consultarClientePorId
+    consultarClientePorId,
+    atualizaCliente
 }
 
