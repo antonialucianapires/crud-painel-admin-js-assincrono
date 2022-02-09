@@ -27,24 +27,34 @@ tabela.addEventListener('click', async (evento) => {
     let isBotaoDeletar = evento.target.className === 'botao-simples botao-simples--excluir';
 
     if (isBotaoDeletar) {
-        //método closest para encontrar o elemento do DOM mais próximo ao que queremos remover
-        const linhaCliente = evento.target.closest('[data-id]');
-        let id = linhaCliente.dataset.id;
+        try {
+            //método closest para encontrar o elemento do DOM mais próximo ao que queremos remover
+            const linhaCliente = evento.target.closest('[data-id]');
+            let id = linhaCliente.dataset.id;
 
-        await clienteService.removeCliente(id)
-        //Remover um elemento do dom com método remove()
-        linhaCliente.remove();
+            await clienteService.removeCliente(id)
+            //Remover um elemento do dom com método remove()
+            linhaCliente.remove();
+        } catch (erro) {
+            console.log(erro)
+            window.location.href = '../telas/erro.html'
+        }
     }
 
 })
 
 const render = async () => {
 
-    const clientes = await clienteService.listaClientes();
+    try {
+        const clientes = await clienteService.listaClientes();
 
-    clientes.forEach(cliente => {
-        tabela.appendChild(criarNovaLinha(cliente.nome, cliente.email, cliente.id));
-    })
+        clientes.forEach(cliente => {
+            tabela.appendChild(criarNovaLinha(cliente.nome, cliente.email, cliente.id));
+        })
+    } catch (erro) {
+        console.log(erro)
+        window.location.href = '../telas/erro.html'
+    }
 }
 
 render();
